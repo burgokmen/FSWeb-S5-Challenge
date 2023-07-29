@@ -38,8 +38,13 @@ const tabEkleyici = (secici) => {
     .then((response) => response.json())
     .then((value) => {
       console.log("value:", value);
-      const valueNew = Object.values(value);
+
+      const keyNew = Object.keys(value);
+      console.log("valkey:", keyNew);
+
+      const valueNew = value[keyNew];
       console.log("valnew:", valueNew);
+
       const tab1 = Tablar(valueNew);
       document.querySelector(secici).append(tab1);
     });
