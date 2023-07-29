@@ -17,7 +17,38 @@ const Card = (makale) => {
   //   </div>
   // </div>
   //
-}
+  const div1 = document.createElement("div");
+  div1.setAttribute("class", "card");
+
+  const divHline = document.createElement("div");
+  divHline.setAttribute("class", "headline");
+  divHline.textContent = `${makale.anabaslik}`;
+
+  const divAut = document.createElement("div");
+  divAut.setAttribute("class", "author");
+
+  div1.append(divHline, divAut);
+
+  const divImgC = document.createElement("div");
+  divImgC.setAttribute("class", "img-container");
+
+  divAut.appendChild(divImgC);
+
+  const img1 = document.createElement("img");
+  img1.src = `${makale.yazarFoto}`;
+
+  const span1 = document.createElement("span");
+  span1.textContent = `${makale.yazarAdi}`;
+  span1.textContent = " tarafından";
+
+  divImgC.append(img1, span1);
+
+  div1.addEventListener("click", function () {
+    console.log(`${makale.anabaslik}`);
+  });
+
+  return div1;
+};
 
 const cardEkleyici = (secici) => {
   // GÖREV 6
@@ -28,6 +59,21 @@ const cardEkleyici = (secici) => {
   // Card bileşenini kullanarak yanıttaki her makale nesnesinden bir kart oluşturun.
   // Her cardı, fonksiyona iletilen seçiciyle eşleşen DOM'daki öğeye ekleyin.
   //
-}
 
-export { Card, cardEkleyici }
+  fetch(`http://localhost:5001/api/makaleler`)
+    .then((response) => response.json())
+    .then((value) => {
+      console.log("value:", value);
+
+      const keyNew = Object.keys(value);
+      console.log("valkey:", keyNew);
+
+      const valueNew = value[keyNew];
+      console.log("valnew:", valueNew);
+
+      const tab1 = Card(valueNew);
+      document.querySelector(secici).append(tab1);
+    });
+};
+
+export { Card, cardEkleyici };
