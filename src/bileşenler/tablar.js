@@ -33,9 +33,16 @@ const tabEkleyici = (secici) => {
   // Yanıtın içindeki konu dizisini bulun ve Tablar bileşenini kullanarak tabları oluşturun.
   // Tabları, fonksiyona iletilen seçiciyle eşleşen DOM'daki öğeye ekleyin.
   //
-  /* const tab1 = Tablar();
 
-  document.querySelector(secici).append(tab1); */
+  fetch(`http://localhost:5001/api/konular`)
+    .then((response) => response.json())
+    .then((value) => {
+      console.log("value:", value);
+      const valueNew = Object.values(value);
+      console.log("valnew:", valueNew);
+      const tab1 = Tablar(valueNew);
+      document.querySelector(secici).append(tab1);
+    });
 };
 
 export { Tablar, tabEkleyici };
